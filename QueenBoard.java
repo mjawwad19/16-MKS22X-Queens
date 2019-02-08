@@ -6,85 +6,50 @@ public class QueenBoard{
     board = new int[size][size];
   }
 
+  private void clear() {
+    for (int i = 0; i < board.length; i++) {
+      for (int j = 0; j < board.length; j++) {
+        board[i][j] = 0;
+      }
+    }
+  }
+
+  /*marks off threatened locations on the board by the given coords of a queen*/
   private void threaten(int r, int c) {
-    for (int rII = r -1; rII >=0; rII--) {
-      board[rII][c]++; //add up by 1 each threaten up the column
-    }
-    for (int rI = r + 1; rI < board.length; rI++) {
-      board[rI][c]++;
-      //add up by 1 each threaten down the column
-    }
-    for (int cII = c -1; cII >= 0; cII--) {
-      board[r][cII]++;
-    }
-    for (int cI = c + 1; cI < board.length; cI++) {
-      board[r][cI]++;
-    }
-    //mark off the row threatened. ^ //diagonals threatened below
-    for (int rI = r +1, cI = c+1; rI < board.length && cI < board.length; rI++,cI++) {
-      board[rI][cI]++;
-    }
-    for (int rII = r-1, cII = c-1; rII >= 0 && cII >= 0; rII--, cII--){
-      board[rII][cII]++;
-    }
-    for (int rI = r +1, cII = c-1; rI < board.length && cII >= 0; rI++, cII--) {
-      board[rI][cII]++;
-    }
-    for (int rII = r -1, cI = c+1; rII >= 0 && cI < board.length; rII--, cI++) {
-      board[rII][cI]++;
+    for (int i = 1; i < board.length - c; i++) {
+      board[r][c+i]++;
+      if (i < board.length -r) board[r+i][c+i]++;
+      if (i <= r) board[r-i][c+i]++;
     }
   }
 
+  /*removes threatened locations on the board by the given coords of a queen*/
   private void unthreat(int r, int c) {
-    for (int rII = r -1; rII >=0; rII--) {
-      board[rII][c]--; //subtract down by 1 each prev threatened.
-    }
-    for (int rI = r + 1; rI < board.length; rI++) {
-      board[rI][c]--;
-    }
-    for (int cII = c -1; cII >= 0; cII--) {
-      board[r][cII]--;
-    }
-    for (int cI = c + 1; cI < board.length; cI++) {
-      board[r][cI]--;
-    }
-    //unmark off the row threatened. ^ //diagonals threatened below
-    for (int rI = r +1, cI = c+1; rI < board.length && cI < board.length; rI++,cI++) {
-      board[rI][cI]--;
-    }
-    for (int rII = r-1, cII = c-1; rII >= 0 && cII >= 0; rII--, cII--){
-      board[rII][cII]--;
-    }
-    for (int rI = r +1, cII = c-1; rI < board.length && cII >= 0; rI++, cII--) {
-      board[rI][cII]--;
-    }
-    for (int rII = r -1, cI = c+1; rII >= 0 && cI < board.length; rII--, cI++) {
-      board[rII][cI]--;
+    for (int i = 1; i < board.length - c; i++) {
+      board[r][c+i]--;
+      if (i < board.length-r) board[r+i][c+i]--;
+      if (i <= r) board[r-i][c+i]--;
     }
   }
 
+  /*adds a queen in the given coords*/
   private boolean addQueen(int r, int c) {
     if (r < board.length && c < board.length) {
-      if (board[r][c] == 0) {
-        board[r][c]--;
-        threaten(r,c);
-        return true;
-      }else{
-        return false;
-      }
-    } return false;
+      if (board[r][c] != 0) return false;
+    }
+    board[r][c]--;
+    threaten(r,c);
+    return true;
   }
-
+  
+  /*removes a queen in the given coords*/
   private boolean removeQueen(int r, int c) {
     if (r < board.length && c < board.length) {
-      if (board[r][c] == -1) {
-        board[r][c]++; //remove the queen
-        unthreat(r,c); //remove the threatened.
-        return true;
-      }else {
-        return false;
-      }
-    } return false;
+      if (board[r][c] != -1) return false;
+    }
+    board[r][c]++;
+    unthreat(r,c);
+    return true;
   }
 
   /**
@@ -120,12 +85,7 @@ public class QueenBoard{
   *@throws IllegalStateException when the board starts with any non-zero value
   */
   public boolean solve() throws IllegalStateException{
-    for (int i = 0; i < board.length; i++) {
-      for (int j = 0; j < board.length; j++) {
-        if (board[i][j] != 0) throw new IllegalStateException("This board is not empty!");
-      }
-    }
-    //return false;
+    if (board[0][0] != 0) throw new IllegalStateException("This board is not empty!");
     return solveH(0);
   }
 
@@ -148,18 +108,15 @@ public class QueenBoard{
   *@throws IllegalStateException when the board starts with any non-zero value
   */
   public int countSolutions() throws IllegalStateException{
-    for (int i = 0; i < board.length; i++) {
-      for (int j = 0; j < board.length; j++) {
-        if (board[i][j] != 0) throw new IllegalStateException("This board is not empty!");
-      }
-    }
+    if (board[0][0] != 0) throw new IllegalStateException();
     int ans = counter(0);
+    clear();
     return ans;
   }
 
   private int counter(int col) {
     int count = 0;
-    if (col == board.length) return 1; //updater I forgot in last commit
+    if (col >= board.length) return 1;
     for (int i = 0; i < board.length; i++) {
       if (addQueen(i, col)) {
         count += counter(col + 1);
