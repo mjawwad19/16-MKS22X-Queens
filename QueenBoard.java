@@ -13,6 +13,13 @@ private void threaten(int r, int c) {
     board[rI][c]++;
     //add up by 1 each threaten down the column
   }
+  for (int cII = c -1; cII >= 0; cII--) {
+    board[r][cII]++;
+  }
+  for (int cI = c + 1; cI < board.length; cI++) {
+    board[r][cI]++;
+  }
+  //mark off the row threatened. ^
 }
 public boolean addQueen(int r, int c) {
   if (board[r][c] == 0) {
