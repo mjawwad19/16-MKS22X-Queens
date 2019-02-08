@@ -2,10 +2,6 @@ public class Driver{
   public static void main(String[] args) {
     String x = " solutions found\n";
     String z = "First solution found:\n\n";
-    QueenBoard a = new QueenBoard(0);
-      System.out.println(a.countSolutions() + x); //0
-      a.solve();
-      System.out.println(z + a);
     QueenBoard b = new QueenBoard(1);
       System.out.println(b.countSolutions() + x);//1
       b.solve();
