@@ -62,13 +62,15 @@ private void unthreat(int r, int c) {
   }
 }
 public boolean addQueen(int r, int c) {
-  if (board[r][c] == 0) {
-    board[r][c]--;
-    threaten(r,c);
-    return true;
-  }else{
-    return false;
-  }
+  if (r < board.length && c < board.length) {
+    if (board[r][c] == 0) {
+      board[r][c]--;
+      threaten(r,c);
+      return true;
+    }else{
+      return false;
+    }
+  } return false;
 }
 public boolean removeQueen(int r, int c) {
   if (r < board.length && c < board.length) {
