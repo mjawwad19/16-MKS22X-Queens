@@ -19,19 +19,46 @@ private void threaten(int r, int c) {
   for (int cI = c + 1; cI < board.length; cI++) {
     board[r][cI]++;
   }
-  //mark off the row threatened. ^
+  //mark off the row threatened. ^ //diagonals threatened below
   for (int rI = r +1, cI = c+1; rI < board.length && cI < board.length; rI++,cI++) {
     board[rI][cI]++;
   }
   for (int rII = r-1, cII = c-1; rII >= 0 && cII >= 0; rII--, cII--){
     board[rII][cII]++;
   }
-  //diagonals threatened. (left up down right)
   for (int rI = r +1, cII = c-1; rI < board.length && cII >= 0; rI++, cII--) {
     board[rI][cII]++;
   }
   for (int rII = r -1, cI = c+1; rII >= 0 && cI < board.length; rII--, cI++) {
     board[rII][cI]++;
+  }
+}
+
+private void unthreat(int r, int c) {
+  for (int rII = r -1; rII >=0; rII--) {
+    board[rII][c]--; //subtract down by 1 each prev threatened.
+  }
+  for (int rI = r + 1; rI < board.length; rI++) {
+    board[rI][c]--;
+  }
+  for (int cII = c -1; cII >= 0; cII--) {
+    board[r][cII]--;
+  }
+  for (int cI = c + 1; cI < board.length; cI++) {
+    board[r][cI]--;
+  }
+  //unmark off the row threatened. ^ //diagonals threatened below
+  for (int rI = r +1, cI = c+1; rI < board.length && cI < board.length; rI++,cI++) {
+    board[rI][cI]--;
+  }
+  for (int rII = r-1, cII = c-1; rII >= 0 && cII >= 0; rII--, cII--){
+    board[rII][cII]--;
+  }
+  for (int rI = r +1, cII = c-1; rI < board.length && cII >= 0; rI++, cII--) {
+    board[rI][cII]--;
+  }
+  for (int rII = r -1, cI = c+1; rII >= 0 && cI < board.length; rII--, cI++) {
+    board[rII][cI]--;
   }
 }
 public boolean addQueen(int r, int c) {
@@ -43,7 +70,17 @@ public boolean addQueen(int r, int c) {
     return false;
   }
 }
-//private boolean removeQueen(int r, int c)
+public boolean removeQueen(int r, int c) {
+  if (r < board.length && c < board.length) {
+    if (board[r][c] == -1) {
+      board[r][c]++; //remove the queen
+      unthreat(r,c); //remove the threatened.
+      return true;
+    }else {
+      return false;
+    }
+  } return false;
+}
 
 
 /**
