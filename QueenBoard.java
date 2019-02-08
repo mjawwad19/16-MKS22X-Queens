@@ -105,10 +105,24 @@ public String toString(){
     for (int j = 0; j < board.length; j++) {
       if (board[i][j] == 0) out += "_ ";
       if (board[i][j] == -1) out += "Q ";
-      if (board[i][j] > 0) out += "X ";
+      //z
+      if (board[i][j] > 0) out += "" + board[i][j] + " ";
     }
     out += "\n";
   }
   return out;
 }
+
+/**
+*@return false when the board is not solveable and leaves the board filled with zeros;
+*        true when the board is solveable, and leaves the board in a solved state
+*@throws IllegalStateException when the board starts with any non-zero value
+*/
+//public boolean solve(){}
+
+/**
+*@return the number of solutions found, and leaves the board filled with only 0's
+*@throws IllegalStateException when the board starts with any non-zero value
+*/
+//public int countSolutions(){}
 }
