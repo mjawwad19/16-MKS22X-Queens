@@ -1,3 +1,4 @@
+import java.util.*;
 public class QueenBoard{
   private int[][] board;
 
@@ -119,11 +120,24 @@ public class QueenBoard{
   *        true when the board is solveable, and leaves the board in a solved state
   *@throws IllegalStateException when the board starts with any non-zero value
   */
-  public boolean solve(){
+  public boolean solve() throws IllegalStateException{
     for (int i = 0; i < board.length; i++) {
       for (int j = 0; j < board.length; j++) {
-        if (board[i][j] != 0) throw IllegalStateException("This board is not empty!");
+        if (board[i][j] != 0) throw new IllegalStateException("This board is not empty!");
       }
+    }
+    //return false;
+    return solveH(0);
+  }
+
+  private boolean solveH(int col) throws IllegalArgumentException {
+    if (col < 0) throw new IllegalArgumentException();
+    if (col == board.length -1) return true;
+    for (int i = 0; i < board.length; i++) {
+      if (addQueen(i, col)) {
+        return solveH(col+1);
+      }
+      else {removeQueen(i,col);}
     }
     return false;
   }
