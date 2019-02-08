@@ -20,6 +20,19 @@ private void threaten(int r, int c) {
     board[r][cI]++;
   }
   //mark off the row threatened. ^
+  for (int rI = r +1, cI = c+1; rI < board.length && cI < board.length; rI++,cI++) {
+    board[rI][cI]++;
+  }
+  for (int rII = r-1, cII = c-1; rII >= 0 && cII >= 0; rII--, cII--){
+    board[rII][cII]++;
+  }
+  //diagonals threatened. (left up down right)
+  for (int rI = r +1, cII = c-1; rI < board.length && cII >= 0; rI++, cII--) {
+    board[rI][cII]++;
+  }
+  for (int rII = r -1, cI = c+1; rII >= 0 && cI < board.length; rII--, cI++) {
+    board[rII][cI]++;
+  }
 }
 public boolean addQueen(int r, int c) {
   if (board[r][c] == 0) {
