@@ -6,19 +6,24 @@ public class QueenBoard{
 }
 
 private void threaten(int r, int c) {
-  for (int i = 0; i < r; i++) {
-    for (int j = 0; j < c; j++) {
-      board[i][j]
-    }
+  for (int rII = r -1; rII >=0; rII--) {
+    board[rII][c]++; //add up by 1 each threaten up the column
+  }
+  for (int rI = r + 1; rI < board.length; rI++) {
+    board[rI][c]++;
+    //add up by 1 each threaten down the column
   }
 }
-private boolean addQueen(int r, int c) {
+public boolean addQueen(int r, int c) {
   if (board[r][c] == 0) {
-    board[r][c] = -1;
+    board[r][c]--;
+    threaten(r,c);
     return true;
+  }else{
+    return false;
   }
 }
-private boolean removeQueen(int r, int c)
+//private boolean removeQueen(int r, int c)
 
 
 /**
@@ -41,6 +46,7 @@ public String toString(){
     for (int j = 0; j < board.length; j++) {
       if (board[i][j] == 0) out += "_ ";
       if (board[i][j] == -1) out += "Q ";
+      if (board[i][j] > 0) out += "X ";
     }
     out += "\n";
   }
