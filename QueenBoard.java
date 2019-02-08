@@ -153,14 +153,16 @@ public class QueenBoard{
         if (board[i][j] != 0) throw new IllegalStateException("This board is not empty!");
       }
     }
-    return counter(0);
+    int ans = counter(0);
+    return ans;
   }
 
   private int counter(int col) {
     int count = 0;
+    if (col == board.length) return 1; //updater I forgot in last commit
     for (int i = 0; i < board.length; i++) {
       if (addQueen(i, col)) {
-        return count += counter(col + 1);
+        count += counter(col + 1);
       }
       removeQueen(i,col);
     }
