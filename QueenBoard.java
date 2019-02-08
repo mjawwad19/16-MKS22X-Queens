@@ -4,7 +4,7 @@ public class QueenBoard{
 
   public QueenBoard(int size){
     board = new int[size][size];
-}
+  }
 
   private void threaten(int r, int c) {
     for (int rII = r -1; rII >=0; rII--) {
@@ -63,7 +63,7 @@ public class QueenBoard{
     }
   }
 
-  public boolean addQueen(int r, int c) {
+  private boolean addQueen(int r, int c) {
     if (r < board.length && c < board.length) {
       if (board[r][c] == 0) {
         board[r][c]--;
@@ -74,7 +74,8 @@ public class QueenBoard{
       }
     } return false;
   }
-  public boolean removeQueen(int r, int c) {
+
+  private boolean removeQueen(int r, int c) {
     if (r < board.length && c < board.length) {
       if (board[r][c] == -1) {
         board[r][c]++; //remove the queen
@@ -85,7 +86,6 @@ public class QueenBoard{
       }
     } return false;
   }
-
 
   /**
   *@return The output string formatted as follows:
@@ -134,11 +134,11 @@ public class QueenBoard{
     if (col == board.length) return true;
     for (int i = 0; i < board.length; i++) {
       if (addQueen(i, col)) {
-        if (solveH(col+1)) {
+        if (solveH(col+1)) { //test to see if I can place the next queens...
           return true;
         }
       }
-      removeQueen(i,col);
+      removeQueen(i,col); //else remove and change position and retry.
     }
     return false;
   }
@@ -147,5 +147,23 @@ public class QueenBoard{
   *@return the number of solutions found, and leaves the board filled with only 0's
   *@throws IllegalStateException when the board starts with any non-zero value
   */
-  //public int countSolutions(){}
+  public int countSolutions() throws IllegalStateException{
+    for (int i = 0; i < board.length; i++) {
+      for (int j = 0; j < board.length; j++) {
+        if (board[i][j] != 0) throw new IllegalStateException("This board is not empty!");
+      }
+    }
+    return counter(0);
   }
+
+  private int counter(int col) {
+    int count = 0;
+    for (int i = 0; i < board.length; i++) {
+      if (addQueen(i, col)) {
+        return count += counter(col + 1);
+      }
+      removeQueen(i,col);
+    }
+    return count;
+  }
+}
