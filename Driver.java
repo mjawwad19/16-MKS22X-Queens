@@ -2,6 +2,11 @@ public class Driver{
   public static void main(String[] args) {
     String x = " solutions found\n";
     String z = "First solution found:\n\n";
+    QueenBoard a = new QueenBoard(0);
+      System.out.println(a.countSolutions() + x);//1
+      a.solve();
+      if (a.countSolutions() == 0) System.out.println(a);
+      else System.out.println(z + a);
     QueenBoard b = new QueenBoard(1);
       System.out.println(b.countSolutions() + x);//1
       b.solve();
@@ -9,10 +14,12 @@ public class Driver{
     QueenBoard c = new QueenBoard(2);
       System.out.println(c.countSolutions() + x);//0
       c.solve();
+        if (c.countSolutions() == 0) System.out.println(c);
       System.out.println(z + c);
     QueenBoard d = new QueenBoard(3);
       System.out.println(d.countSolutions() + x);//0
       d.solve();
+        if (d.countSolutions() == 0) System.out.println(d);
       System.out.println(z + d);
     QueenBoard e = new QueenBoard(4);
       System.out.println(e.countSolutions() + x);//2
