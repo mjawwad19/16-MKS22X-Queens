@@ -1,9 +1,11 @@
 import java.util.*;
 public class QueenBoard{
   private int[][] board;
+  private int space;
 
   public QueenBoard(int size){
     board = new int[size][size];
+    this.space = (int) Math.pow(size, 2);
   }
 
   private void clear() {
@@ -41,7 +43,7 @@ public class QueenBoard{
     threaten(r,c);
     return true;
   }
-  
+
   /*removes a queen in the given coords*/
   private boolean removeQueen(int r, int c) {
     if (r < board.length && c < board.length) {
@@ -85,7 +87,8 @@ public class QueenBoard{
   *@throws IllegalStateException when the board starts with any non-zero value
   */
   public boolean solve() throws IllegalStateException{
-    if (board[0][0] != 0) throw new IllegalStateException("This board is not empty!");
+    if (this.space == 0) return false;
+    else if (board[0][0] != 0) throw new IllegalStateException("This board is not empty!");
     return solveH(0);
   }
 
@@ -108,7 +111,8 @@ public class QueenBoard{
   *@throws IllegalStateException when the board starts with any non-zero value
   */
   public int countSolutions() throws IllegalStateException{
-    if (board[0][0] != 0) throw new IllegalStateException();
+    if (this.space == 0) return 0;
+    else if (board[0][0] != 0) throw new IllegalStateException();
     int ans = counter(0);
     clear();
     return ans;
