@@ -14,13 +14,13 @@ public class Driver{
     QueenBoard c = new QueenBoard(2);
       System.out.println(c.countSolutions() + x);//0
       c.solve();
-        if (c.countSolutions() == 0) System.out.println(c);
-      System.out.println(z + c);
+      if (c.countSolutions() == 0) System.out.println(c);
+      else System.out.println(z + c);
     QueenBoard d = new QueenBoard(3);
       System.out.println(d.countSolutions() + x);//0
       d.solve();
-        if (d.countSolutions() == 0) System.out.println(d);
-      System.out.println(z + d);
+      if (d.countSolutions() == 0) System.out.println(d);
+      else System.out.println(z + d);
     QueenBoard e = new QueenBoard(4);
       System.out.println(e.countSolutions() + x);//2
       e.solve();
