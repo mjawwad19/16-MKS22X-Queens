@@ -1,6 +1,6 @@
 public class Driver{
   public static void main(String[] args) {
-    String x = " solutions found\n";
+    /*String x = " solutions found\n";
     String z = "First solution found:\n\n";
     QueenBoard a = new QueenBoard(0);
       System.out.println(a.countSolutions() + x);//1
@@ -49,7 +49,8 @@ public class Driver{
       System.out.println(k.countSolutions() + x);//724
       //System.out.println(k);
       k.solve();
-      System.out.println(z + k);
-
-  }
+      System.out.println(z + k);*/
+      QueenBoard b = new QueenBoard(8);
+      QueenBoard.runTest(4);
+}
 }
