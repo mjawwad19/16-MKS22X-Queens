@@ -50,7 +50,8 @@ public class Driver{
       //System.out.println(k);
       k.solve();
       System.out.println(z + k);*/
-      QueenBoard b = new QueenBoard(8);
-      QueenBoard.runTest(4);
+      for (int i = 0; i < 6; i++) {
+        QueenBoard.runTest(i); //pass
+      }
 }
 }
